@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HERE Fleet — Live Tracking Dashboard</title>
+
+    <!-- Leaflet CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
+    />
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <!-- ── TOP BAR ── -->
+      <header class="topbar">
+        <div class="logo">
+          <div class="logo-dot"></div>
+          HERE Fleet
+        </div>
+        <span class="topbar-title">Live Vehicle Tracking Dashboard</span>
+        <div class="topbar-right">
+          <div class="live-badge">
+            <div class="live-dot"></div>
+            LIVE
+          </div>
+          <div class="time" id="clock">--:--:--</div>
+        </div>
+      </header>
+
+      <!-- ── LEFT SIDEBAR ── -->
+      <aside class="sidebar-left">
+        <input
+          class="search-bar"
+          type="text"
+          placeholder="🔍  Search vehicle or driver..."
+          oninput="filterVehicles(this.value)"
+        />
+        <div class="filter-row">
+          <button
+            class="filter-btn active-filter"
+            onclick="filterByStatus('all', this)"
+          >
+            All
+          </button>
+          <button class="filter-btn" onclick="filterByStatus('moving', this)">
+            Moving
+          </button>
+          <button class="filter-btn" onclick="filterByStatus('idle', this)">
+            Idle
+          </button>
+          <button class="filter-btn" onclick="filterByStatus('alert', this)">
+            Alert
+          </button>
+        </div>
+        <div class="sidebar-label">Fleet — 6 vehicles</div>
+        <div id="vehicle-list"></div>
+      </aside>
+
+      <!-- ── MAP ── -->
+      <main id="map"></main>
+
+      <!-- ── RIGHT SIDEBAR ── -->
+      <aside class="sidebar-right">
+        <div class="stats-strip">
+          <div class="stat-card">
+            <div class="stat-val green" id="stat-active">0</div>
+            <div class="stat-label">Moving</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val amber" id="stat-idle">0</div>
+            <div class="stat-label">Idle</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val red" id="stat-alert">0</div>
+            <div class="stat-label">Alerts</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val blue" id="stat-speed">0</div>
+            <div class="stat-label">Avg km/h</div>
+          </div>
+        </div>
+
+        <div class="detail-panel">
+          <div class="detail-header">
+            <span class="detail-title">Vehicle Detail</span>
+          </div>
+          <div id="detail-body">
+            <div class="detail-empty">
+              Click any vehicle on the map or from the list to see its details
+              here.
+            </div>
+          </div>
+        </div>
+
+        <div class="alerts-panel">
+          <div class="sidebar-label" style="margin-bottom: 10px">
+            Live Alerts
+          </div>
+          <div id="alerts-list"></div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+
+    <script src="app.js"></script>
+  </body>
+</html>
